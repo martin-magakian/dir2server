@@ -1,174 +1,100 @@
-# // draggable
+doduck prototype - upload and download files between client and server using dropbox in the middle
+============
 
-![Screenshot](https://github.com/brynbellomy/iOS-DragAndDrop/raw/master/SEDraggableDemo/screenshot.png)
 
-# wtf is this
 
-It's currently not possible to use Cocoa's drag-and-drop classes and protocols
-in iPhone/iPad apps.  This really sucks.  Implementing a
-__UIPanGestureRecognizer__ is really fucking boring.
+Just a prototype
+---------
+This project is just a quick prototype aimed to explain the command line interface in Java and how to create a dropbox application.
 
-__SEDraggable__ is a subclass of __UIView__ that fills this void, making it
-easy to add drag-and-drop functionality to any __UIView__ in your application.
+Related article: [CLI prototypes in Java](http://doduck.com/en/command-line-interface-in-java-api-overview/) <br />
+or in French [Command Line Interface en Java](http://doduck.com/fr/command-line-interface-en-java/) <br />
 
-# how
 
-**Note: check out the example project.  It's a pain to explain code in English,
-and I didn't try very hard.**
+ 
+Tutorial
+=========
+![watch on Youtube](/README_src/watch-on-youtube.png "watch on Youtube")
 
-Add the source files to your Xcode project.  Import the `SEDraggable.h` and
-`SEDraggableLocation.h` headers.
+After watching the youtube tutorial you will have an executable jar call "dir2server.jar"
 
-```objective-c
-#import "SEDraggable.h"
-#import "SEDraggableLocation.h"
-```
 
-To initialize an instance of __SEDraggable__, you'll probably want to use one
-of these:
+Upload from your client
+------
+In order to upload a file in your dropbox run the command:
+> java -jar --upload myBigFile.zip
 
-```objective-c
-- (id) initWithFrame:(CGRect)frame;
-- (id) initWithImage:(UIImage *)image andSize:(CGSize)size;
-- (id) initWithImageView:(UIImageView *)imageView;
-```
+First time your run this command you will get this kind of message:
+> Accept the app by openning your browser at this URL: <br />
+> https://www.dropbox.com:443/1/oauth/authorize?oauth_token=RwoTAsNV4W5AUcvN&locale=en <br />
+> THEN press any key: <br />
 
-```objective-c
-// set up the UIImageView that will be used as the visible component of our draggable element
-UIImage *image = [[UIImage alloc] initWithContentsOfFile:@"someFile.png"];
-UIImageView *imageView = [UIImageView alloc] initWithImage:image];
 
-// initialize the draggable element itself
-SEDraggable *draggableView = [SEDraggable initWithImageView:imageView];
-```
+Open your browser at this url and accept the app.
 
-Of course, as mentioned, there are simpler init methods to suit different
-needs.
+Then press any key into your console.
 
-```objective-c
-CGRect frame = CGRectMake(10, 10, 100, 100);
-SEDraggable *draggableView = [SEDraggable initWithFrame:frame];
-// ... or ...
-SEDraggable *draggableView = [SEDraggable init];
-```
 
-# using SEDraggableLocation's automatic behaviors
 
-__SEDraggableLocation__ allows you to easily switch between certain automatic
-behaviors -- for example, visually arranging a set of __SEDraggable__ objects
-so that they don't appear to be haphazardly strewn about, or yanking an
-__SEDraggable__ back to its original location when a drag-and-drop operation is
-unsuccessful for some reason.
+**WARNING:**
+- The app will ONLY be able to access dropbox/Apps/dir2server/ **it can't access any other file** <br />
+- In case you failed the authentification remove the file into .client2server created in your home folder
 
-Try something like the following.  Run the code and then play around with the
-draggable objects to see how they behave.
 
-```objective-c
-SEDraggable *draggableView = ...
+Download from your server
+------
+Just before uploading the file into your dropbox. You will get a message like
 
-// create the SEDraggableLocation to represent the draggable element's starting point
-CGRect homeLocationBounds = CGRectMake(10, 10, 100, 100);
-CGRect otherLocationBounds = CGRectMake(200, 200, 100, 100);
-SEDraggableLocation *homeLocation = [SEDraggableLocation initWithBounds:homeLocationBounds];
-SEDraggableLocation *otherLocation = [SEDraggableLocation initWithBounds:otherLocationBounds];
+>You have to run on the server (Only once): <br />
+>java -jar [JAR_NAME] --accessKey RwoTAsNV4W5AUcvN --secretKey RwoTAsNV4W5AUcvN<br />
+><br />
+>Run the following command on the server. It will start the download the file as soon as the upload finish<br />
+>java -jar [JAR_NAME] --download myBigFile.zip<br />
+><br />
+>You can also get notify by email when the server finish to download the file.<br />
+>java -jar [JAR_NAME] --download myBigFile.zip --email 'your@email.com' --smtp 'your.smtp.com' --login 'your login' --password 'your password'<br />
+><br />
+><br />
+>Start upload ?  Y/N :
 
-// configure a whole litany of options
-otherLocation.objectWidth = draggableView.frame.size.width;
-otherLocation.objectHeight = draggableView.frame.size.height;
-otherLocation.marginLeft = 3;
-otherLocation.marginRight = 3;
-otherLocation.marginTop = 3;
-otherLocation.marginBottom = 3;
-otherLocation.marginBetweenX = 3;
-otherLocation.marginBetweenY = 3;
-otherLocation.shouldAcceptDroppedObjects = YES;
-otherLocation.shouldAutomaticallyRecalculateObjectPositions = YES;
-otherLocation.shouldAnimateObjectAdjustments = YES;
-otherLocation.animationDuration = 0.5f;
-otherLocation.animationDelay = 0.0f;
-otherLocation.animationOptions = UIViewAnimationOptionBeginFromCurrentState;
-otherLocation.fillHorizontallyFirst = YES; // NO makes it fill rows first
-otherLocation.allowRows = YES;
-otherLocation.allowColumns = YES;
 
-// add the draggable object, or maybe even several
-draggableView.homeLocation = homeLocation;
-[draggableView addAllowedDropLocation:homeLocation];
-[draggableView addAllowedDropLocation:otherLocation];
-[homeLocation addDraggableObject:draggableView];
-```
+If it's the first time you use the app on your server run this command on your server:
+>java -jar [JAR_NAME] --accessKey RwoTAsNV4W5AUcvN --secretKey RwoTAsNV4W5AUcvN
 
-# SEDraggableLocation bounds
+It will give your server all the requiment to access your dropbox/Apps/dir2server/ folder (Where the myBigFile.zip will be uploaded)
 
-You can even specify different boundaries for where an __SEDraggableLocation__
-will _accept_ dropped objects and where it will _place_ them.  And these two
-regions don't even have to be contiguous in any way!  It's kind of cool to
-watch what happens if they're not -- when you drop your draggable objects, they
-fly from one area of the screen to another automatically.
 
-These are the two properties you'll want to look at if you want to configure
-this kind of behavior:
+Then you can run the download from your server using the given command given before the uplaod:
+>java -jar [JAR_NAME] --download myBigFile.zip
 
-```objective-c
-@property (nonatomic, readwrite) CGRect responsiveBounds;
-@property (nonatomic, readwrite) CGRect objectGutterBounds;
-```
+You can run this command before, during or after your uploaded the file!
+dir2server.jar will download the file as soon as it's available to download.
 
-# delegate messages
 
-You can specify a delegate that will be notified of pertinent drag-and-drop
-events.  Delegates of __SEDraggable__ and __SEDraggableLocation__ objects must
-conform either to the __SEDraggableEventResponder__ protocol or the
-__SEDraggableLocationEventResponder__ protocol, respectively.  The two
-protocols define the following messages, _all of which are optional_:
+You can get an email back when the download is finish using this kind of command line:
+>java -jar [JAR_NAME] --download myBigFile.zip --email 'myemail@gmail.com' --smtp 'smtp.gmail.com' --login 'myemail@gmail.com' --password 'myPassword'<br />
 
-## @protocol SEDraggableEventResponder
 
-```objective-c
-- (void) draggableObjectDidMove:(SEDraggable *)object;
-- (void) draggableObjectDidStopMoving:(SEDraggable *)object;
+Dealing with overwriting file
+------
+When you upload a file who already exist you will get a message like:
+>Run the following command on the server. It will start the download the file as soon as the upload finish<br />
+>java -jar [JAR_NAME] --download myBigFile.zip -x f2a87eb52e <br />
 
-- (void) draggableObject:(SEDraggable *)object didMoveWithinLocation:(SEDraggableLocation *)location;
-- (void) draggableObject:(SEDraggable *)object didStopMovingWithinLocation:(SEDraggableLocation *)location;
+When running this parameter "-x f2a87eb52e" dir2server will only download the file after it at been uploaded. 
+Under the hook it just wait until the version change from f2a87eb52e into something else.
 
-- (void) draggableObjectWillSnapBackToHomeFrame:(SEDraggable *)object;
-- (void) draggableObjectDidEndSnappingBackToHomeFrame:(SEDraggable *)object;
 
-- (void) draggableObject:(SEDraggable *)object didBeginSnapAnimationWithID:(NSString *)animationID andContext:(void *)context;
-- (void) draggableObject:(SEDraggable *)object didEndSnapAnimationWithID:(NSString *)animationID andContext:(void *)context;
-```
 
-## @protocol SEDraggableLocationEventResponder
+Contact
+=========
+Developed by Martin Magakian
+dev.martin.magakian@gmail.com
 
-```objective-c
-- (void) draggableLocation:(SEDraggableLocation *)location didAcceptDroppedObject:(SEDraggable *)object;
-- (void) draggableLocation:(SEDraggableLocation *)location didRefuseDroppedObject:(SEDraggable *)object;
-- (void) draggableObject:(SEDraggable *)object wasRemovedFromLocation:(SEDraggableLocation *)location;
-```
 
-# authors and contributors
+License
+=========
+MIT License (MIT)
 
-bryn austin bellomy <<bryn@signals.io>>
+![githalytics.com alpha](https://cruel-carlota.gopagoda.com/2a45d8b1e8f1420e9bdd8bfcb9a19e1a "githalytics.com")
 
-# license (MIT license)
-
-Copyright (c) 2012 bryn austin bellomy // [robot bubble bath LLC](http://robotbubblebath.com/)
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

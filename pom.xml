@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.doduck.prototype.cli</groupId>
-	<artifactId>FromDropboxToServer</artifactId>
+	<artifactId>dir2server</artifactId>
 	<version>1</version>
 
 	<properties>
@@ -40,7 +40,7 @@
                 	<archive>
                     	<manifest>
                         	<addClasspath>true</addClasspath>
-                        	<mainClass>com.doduck.prototype.cli.FromDropboxToServer.Main</mainClass>
+                        	<mainClass>com.doduck.prototype.cli.dir2server.Main</mainClass>
                     	</manifest>
                 	</archive>
                 	<descriptorRefs>
