@@ -1,14 +1,15 @@
-doduck prototype - upload and download files between client and server using dropbox in the middle
+upload & download files between client and server using dropbox
 ============
 
+<br />
 
-
-Just a prototype
+Just a doduck prototype
 ---------
 This project is just a quick prototype aimed to explain the command line interface in Java and how to create a dropbox application.
 
-Related article: [CLI prototypes in Java](http://doduck.com/en/command-line-interface-in-java-api-overview/) <br />
-or in French [Command Line Interface en Java](http://doduck.com/fr/command-line-interface-en-java/) <br />
+Please read the elated article on [doduck.com](http://doduck.com):
+- [CLI prototypes in Java](http://doduck.com/en/command-line-interface-in-java-api-overview/) <br />
+- in French [Command Line Interface en Java](http://doduck.com/fr/command-line-interface-en-java/) <br />
 
 
  
@@ -90,6 +91,7 @@ Contact
 =========
 Developed by Martin Magakian
 dev.martin.magakian@gmail.com
+for [doduck prototype](http://doduck.com/)
 
 
 License
