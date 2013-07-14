@@ -78,7 +78,7 @@ public class AccessToken {
 
 	private String getPersistantFilePath() {
 		String dir = System.getProperty("user.home") + System.getProperty("file.separator");
-		String filePath = dir + ".client2Server";
+		String filePath = dir + ".dir2Server";
 		return filePath;
 	}
 

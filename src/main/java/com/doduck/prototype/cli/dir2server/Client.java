@@ -91,7 +91,7 @@ public class Client {
 	private void displayCommandAndAskToContinu(String dropboxFileName, String parentRevision) throws IOException {
 		System.out.println();
 		System.out.println("You have to run on the server (Only once):");
-		System.out.println("java -jar [JAR_NAME] --accessKey "+accessKey+" --secretKey "+accessKey);
+		System.out.println("java -jar [JAR_NAME] --accessKey "+accessKey+" --secretKey "+accessSecret);
 		System.out.println();
 
 		String cmdLean = "java -jar [JAR_NAME] --download " + dropboxFileName;
@@ -162,9 +162,12 @@ public class Client {
 			if (currentFileMeta != null) {
 				if (excludeRevision == null || currentFileMeta.rev == null) {
 					readyToDownload = true;
-				} else if (!currentFileMeta.rev.equals(excludeRevision)) {
+				} else if (currentFileMeta.rev.equals(excludeRevision)) {
 					System.out.println(currentFileMeta.rev);
 					System.out.println(excludeRevision);
+					System.out.println("we exclude this version");
+					readyToDownload = false;
+				}else{
 					readyToDownload = true;
 				}
 			}
@@ -207,7 +210,7 @@ public class Client {
 		email.setSSLOnConnect(true);
 		email.setFrom(senderEmail);
 		email.setSubject(fileName + " finish to download");
-		email.setMsg("This is a test mail ... :-)");
+		email.setMsg("Your server just finish downloading "+fileName+" with sucess! \r\n\r\n\r\n PLEASE can you support our work ? \r\n Create a link to our blog doduck.com");
 		email.addTo(senderEmail);
 		email.send();
 	}

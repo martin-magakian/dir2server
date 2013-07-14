@@ -37,7 +37,7 @@ public class Main {
 		}
 		
 		if(cmd.getEmail() != null || cmd.getSmtp() != null || cmd.getLogin() != null || cmd.getPassword() != null){
-			if(cmd.getEmail() != null && cmd.getSmtp() != null && cmd.getLogin() != null && cmd.getPassword() != null){
+			if( !(cmd.getEmail() != null && cmd.getSmtp() != null && cmd.getLogin() != null && cmd.getPassword() != null)){
 				log.error("Arguments are missing. If you want to send an email at the end of the download you need to set all params:");
 				log.error("--email, --smtp, --login, --password");
 				return;

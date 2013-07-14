@@ -19,7 +19,7 @@ public class Client2ServerCmd {
 	
 	
 	
-	/* downlaod */
+	/* download */
 	@Parameter(names = "--download", description = "File to download")
 	private String downloadFile;
 	

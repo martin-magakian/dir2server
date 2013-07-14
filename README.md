@@ -7,17 +7,17 @@ Just a doduck prototype
 ---------
 This project is just a quick prototype aimed to explain the command line interface in Java and how to create a dropbox application.
 
-Please read the elated article on [doduck.com](http://doduck.com):
-- [CLI prototypes in Java](http://doduck.com/en/command-line-interface-in-java-api-overview/) <br />
-- in French [Command Line Interface en Java](http://doduck.com/fr/command-line-interface-en-java/) <br />
+Please read the related article on [Dropbox App in Java CLI](http://doduck.com/en/dropbox-app-in-java-cli/)
+or in French [Développer une App Dropbox en Java](http://doduck.com/fr/dropbox-app-java/) <br />
 
 
  
 Tutorial
 =========
-![watch on Youtube](/README_src/watch-on-youtube.png "watch on Youtube")
+![watch on Youtube](/README_src/watch-on-youtube-fr.png "watch on Youtube")
+![watch on Youtube](/README_src/watch-on-youtube-en.png "regarder sur Youtube")
 
-After watching the youtube tutorial you will have an executable jar call "dir2server.jar"
+After watching the youtube video you will have an executable jar call "dir2server.jar"
 
 
 Upload from your client
