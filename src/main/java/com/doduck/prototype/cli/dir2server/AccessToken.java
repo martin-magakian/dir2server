@@ -1,6 +1,5 @@
 package com.doduck.prototype.cli.dir2server;
 
-import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,10 +10,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.net.URL;
-
-import javax.swing.JOptionPane;
-
 import com.dropbox.client2.exception.DropboxException;
 import com.dropbox.client2.session.AccessTokenPair;
 import com.dropbox.client2.session.AppKeyPair;
@@ -22,7 +17,6 @@ import com.dropbox.client2.session.RequestTokenPair;
 import com.dropbox.client2.session.Session.AccessType;
 import com.dropbox.client2.session.WebAuthSession;
 import com.dropbox.client2.session.WebAuthSession.WebAuthInfo;
-import com.sun.tools.javadoc.Messager.ExitJavadoc;
 
 public class AccessToken {
 
@@ -85,8 +79,9 @@ public class AccessToken {
 	public AccessTokenPair getDefaultToken(){
 		String filePath = getPersistantFilePath();
 		
+		BufferedReader br = null;
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(filePath));
+			br = new BufferedReader(new FileReader(filePath));
 			String key = br.readLine();
 			String secret = br.readLine();
 			
@@ -97,6 +92,15 @@ public class AccessToken {
 			e.printStackTrace();
 			System.exit(-1);
 			return null;
+		}finally{
+			if(br!= null){
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+					System.exit(-1);
+				}
+			}
 		}
 	}
 

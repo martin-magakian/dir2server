@@ -14,8 +14,15 @@ or in French [Développer une App Dropbox en Java](http://doduck.com/fr/dropbox-
  
 Tutorial
 =========
-![watch on Youtube](/README_src/watch-on-youtube-fr.png "watch on Youtube")
-![watch on Youtube](/README_src/watch-on-youtube-en.png "regarder sur Youtube")
+
+[![watch on Youtube]
+(/README_src/watch-on-youtube-en.png "watch on Youtube")]
+(www.youtube.com/watch?v=h3UtTEa-tEM)
+
+[![watch on Youtube]
+(/README_src/watch-on-youtube-fr.png "regarder sur Youtube")]
+(www.youtube.com/watch?v=FK71SR0qgBg)
+
 
 After watching the youtube video you will have an executable jar call "dir2server.jar"
 
